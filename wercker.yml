@@ -1,0 +1,26 @@
+box:
+  id: golang
+  ports:
+    - "5000"
+
+dev:
+  steps:
+    - internal/watch:
+      code:
+        go build ./...
+        ./source
+      reload: true
+
+build:
+  steps:
+    - wercker/golint
+
+    - script:
+      name: go build
+      code: |
+        go build ./...
+
+    - script:
+      name: go test
+      code: |
+        go test ./...
